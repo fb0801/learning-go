@@ -7,7 +7,8 @@ import (
 
 func main() {
 	http.HandleFunc("/create-payment-intent", handleCreatePaymentIntent)
-    http.HandleFunc("/health")
+    
+    http.ListenAndServe(addr:"localhost:4242", handler:nil)
 }
 
 func handleCreatePaymentIntent(w http.ResponseWriter, r *http.Request) {
