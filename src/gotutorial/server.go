@@ -8,7 +8,9 @@ import (
 
 func main() {
 	http.HandleFunc("/create-payment-intent", handleCreatePaymentIntent)
+    http.HandleFunc("/health", handleHealth)
     
+    log.Println(v...:"listening on localhost")
     var err error = http.ListenAndServe(addr: "localhost:4242", handler:nil)
 
     if err != nil {
@@ -18,4 +20,11 @@ func main() {
 
 func handleCreatePaymentIntent(w http.ResponseWriter, r *http.Request) {
     fmt.Println("request made")
+}
+
+func handleHealth(w http.ResponseWriter, r *http.Request) {
+    var response []byte("server is up and running")
+
+    writer.Write(response)
+
 }
