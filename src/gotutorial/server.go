@@ -18,8 +18,11 @@ func main() {
     }
 }
 
-func handleCreatePaymentIntent(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("request made")
+func handleCreatePaymentIntent(writer http.ResponseWriter, request *http.Request) {
+    if request.Method != "POST" {
+        http.Error(writer, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+        return 
+    }
 }
 
 func handleHealth(writer http.ResponseWriter, request *http.Request) {
