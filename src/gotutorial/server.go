@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -38,6 +39,13 @@ func handleCreatePaymentIntent(writer http.ResponseWriter, request *http.Request
         Zip string `json:"zip"`
         Country string `json:"country"`
 
+    }
+
+    err := json.NewDecoder(request.Body).Decode(&req)
+
+    if err != nil {
+        http.Error(writer, err)
+        return 
     }
 }
 
