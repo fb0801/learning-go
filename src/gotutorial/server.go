@@ -47,15 +47,12 @@ func handleCreatePaymentIntent(writer http.ResponseWriter, request *http.Request
         http.Error(writer, err.Error(), http.StatusInternalServerError)
         return 
     }
-    fmt.Println(req.ProductId)
-    fmt.Println(req.FirstName)
-    fmt.Println(req.LastName)
-    fmt.Println(req.Address1)
-    fmt.Println(req.Address2)
-    fmt.Println(req.City)
-    fmt.Println(req.State)
-    fmt.Println(req.Zip)
-    fmt.Println(req.Country)
+    params := &stripe.PaymentIntentParams{
+		Amount:   stripe.Int64(calculateOrderAmount(req.ProductId)),
+		Currency: stripe.String(string(stripe.CurrencyUSD)),
+		AutomaticPaymentMethods: &stripe.PaymentIntentAutomaticPaymentMethodsParams{
+			Enabled: stripe.Bool(true),
+		},
 
 }
 
