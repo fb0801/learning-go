@@ -55,6 +55,7 @@ func handleCreatePaymentIntent(writer http.ResponseWriter, request *http.Request
 		},
 
 }
+}
 
 func handleHealth(writer http.ResponseWriter, request *http.Request) {
     response := []byte("server is up and running")
@@ -64,4 +65,16 @@ func handleHealth(writer http.ResponseWriter, request *http.Request) {
         fmt.Println(err)
     }
 
+}
+
+func calculateOrderAmount(productId string) int64 {
+    switch productId {
+	case "Forever Pants":
+		return 26000
+	case "Forever Shirt":
+		return 15500
+	case "Forever Shorts":
+		return 30000
+	}
+	return 0
 }
