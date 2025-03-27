@@ -1,15 +1,22 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+
+	"github.com/stripe/stripe-go/v74"
+	"github.com/stripe/stripe-go/v74/paymentintent"
+	"github.com/stripe/stripe-go/v81/paymentintent"
 )
 
 
 func main() {
 
+    stripe.key=""
 
 	http.HandleFunc("/create-payment-intent", handleCreatePaymentIntent)
     http.HandleFunc("/health", handleHealth)
@@ -55,6 +62,30 @@ func handleCreatePaymentIntent(writer http.ResponseWriter, request *http.Request
 		},
 
 }
+paymentIntent, err := paymentintent.New(params)
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusInternalServerError)
+	}
+    paymentintent.ClientSecret
+
+    var response struct {
+        ClientSecret string `json:"clientSecret"`
+    }
+    respone.ClientSecret - paymentintent.ClientSecret
+
+    var buf bytes.Buffer
+	err = json.NewEncoder(&buf).Encode(response)
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusInternalServerError)
+	}
+
+	writer.Header().Set("Content-Type", "application/json")
+
+	_, err = io.Copy(writer, &buf)
+	if err != nil {
+		fmt.Println(err)
+	}
+    
 }
 
 func handleHealth(writer http.ResponseWriter, request *http.Request) {
